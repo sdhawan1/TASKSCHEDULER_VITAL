@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My Workouts</title>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="https://www.google.com/jsapi"></script>
+
+		<script language="JavaScript" type="text/javascript">			
+			$(document).ready(function() {				
+				$(".dropdown-init").click(function(){					
+					$(this).find('.dropdown-item').css('display', 'list-item');
+				});
+
+				$(".hide-list").click(function() {
+					alert("WHY DOESN'T THIS BUTTON WORK?!?!?!?!");
+					///WHY DOESN'T THIS WORK?!?!?!?!?!?
+					$(this).parentsUntil($('.dropdown-init')).find('.dropdown-item').css('display', 'none');
+				});
+			});
+			
+			/*
+			function Display_ddinfo () {
+				$('.dropdown-item').css('display', 'list-item');
+			}
+			*/
+		</script>
+
+		<style media="screen" type="text/css">
+			.dropdown-item {
+				display: none;
+			}			
+		</style>
+
+	</head>
+
+	<body>
+		<!-- Change the action url? -->
+		<form name="addtask" action="/tasks/create" method="post">
+			<h2>Add a new Workout!</h2>
+			<input type="text" name="newtaskname" value="name:">
+			Rating: <input type="number" name="rating" value="rating:">
+			Min Duration (minutes): <input type="number" name="durationmin">
+			Max Duration (minutes): <input type="number" name="durationmax">
+			Mood: <input type="text" name="mood">
+			<br>
+			<br>
+			<textarea name="description" cols="50" rows="10">Enter Description:</textarea>
+			<br>
+			<input type = "submit" name="submit" value="create">
+		</form>
+
+		<!-- Change the action url? -->
+		<form name= "edittask" action="/tasks/edit" method="post">
+			<h2>Edit a Workout!</h2>			
+			<input type="text" name="editTaskName" value="enter existing name:">
+			Rating: <input type="number" name="editRating">
+			Min Duration: <input type="number" name="editMinDuration">
+			Max Duration: <input type="number" name="editMaxDuration">
+			Mood: <input type="text" name="editMood">
+			<br>
+			<br>
+			<textarea name="editDescription" cols="50" rows="10">Enter Description:</textarea>
+			<br>
+			<input type="submit" name="submit" value="edit">
+		</form>
+
+
+		<!-- Display all your tasks here? -->
+		<h1>My Workouts</h1>
+
+		<ol>
+			<% for(var i=0; i<tasklist.length; i++) { %>
+				<li> 
+					<div class='dropdown-init'>
+						<%= tasklist[i] %>
+						<ul>
+							<li class="dropdown-item"> rating=<%= ratinglist[i] %> </li>
+							<li class="dropdown-item"> duration=<%= durationlist[i] %> </li>
+							<li class="dropdown-item"> mood=<%=moodlist[i]%> </li>
+							<li class="dropdown-item">
+								<div>
+									description: <%= descriptionlist[i] %>
+								</div>
+							</li>
+							<li class="dropdown-item">
+								<button class="hide-list">Less</button>
+							</li>
+						</ul>
+					</div>
+					
+				</li>
+			<% } %>
+		</ol>
+		
+		<br>
+		<br>
+		<a href="http://localhost:8000/home">Home</a>
+		<br>
+		<p><strong>MY WORKOUTS PAGE</strong></p>
+		<br>
+		<a href='http://localhost:8000/recommender'>Recommender</a>
+		<br>
+		<a href='http://localhost:8000/history'>History</a>
+		<br>
+		<a href="http://localhost:8000/logout">Log out</a>
+	</body>
+
+</html>
